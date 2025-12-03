@@ -6,8 +6,6 @@
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '*/5 * * * *'
 
 jobs:
   run-integration:
