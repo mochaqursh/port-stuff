@@ -4,23 +4,24 @@
 # atlassian_user_email: The email of the user used to query Jira
 # atlassian_user_token: You can configure the user token on the Atlassian account page
 
+name: Port Self-Service Action
+
 on:
   workflow_dispatch:
+    inputs:
+      message:
+        description: 'Message to log'
+        required: true
+        type: string
+      port_context:
+        description: 'Port context'
+        required: true
+        type: string
 
 jobs:
-  run-integration:
+  run-action:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
-    
     steps:
-      - name: Run jira Integration
-        uses: port-labs/ocean-sail@v1
-        with:
-          type: jira
-          port_client_id: ${{ secrets.PORT_CLIENT_ID }}
-          port_client_secret: ${{ secrets.PORT_CLIENT_SECRET }}
-          port_base_url: "https://api.port.io"
-          config: |
-            jira_host: "ENTER VALUE HERE"
-            atlassian_user_email: ${{ secrets.atlassianUserEmail }}
-            atlassian_user_token: ${{ secrets.atlassianUserToken }}
+      - name: Print the message
+        run: |
+          echo "Message from Port: ${{ inputs.message }}"
